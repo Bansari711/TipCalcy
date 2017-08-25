@@ -63,7 +63,9 @@ class ViewController: UIViewController {
         
     }
     
-    
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        billTextField.text = "";
+    }
     
     @IBAction func calculateTipBillTextField(_ sender: Any) {
         let tipPercentage = Int(tipPercentageLabel.text!)
