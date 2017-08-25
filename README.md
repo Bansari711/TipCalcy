@@ -27,6 +27,7 @@ The following **additional** features are implemented:
 - [x] User can set no of people to share the bill amount. 
 - [x] User can save the default tip percentage settings or custom tip percentage settings through tip-settings page
 - [x] User can change application gradient background and save selected background
+- [x] Shake phone to reset bill amount.
 
 ## Video Walkthrough 
 
