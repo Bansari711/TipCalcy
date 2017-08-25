@@ -18,7 +18,7 @@ The following **required** functionality is complete:
 
 The following **optional** features are implemented:
 - [x] UI animations
-- [ ] Remembering the bill amount across app restarts (if <10mins)
+- [x] Remembering the bill amount across app restarts (if <10mins)
 - [x] Using locale-specific currency and currency thousands separators.
 - [x] Making sure the keyboard is always visible and the bill amount is always the first responder. This way the user doesn't have to tap anywhere to use this app. Just launch the app and start typing.
 
@@ -32,9 +32,12 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/rpat0Km.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' /></a>
+<img src='http://i.imgur.com/rpat0Km.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/t46dUaP.gif' title='Video Walkthrough Updated' width='' alt='Video Walkthrough' />
+
 
 Background of the application looks different in GIF than original application.
+Second Walkthrough is to display that Bill saving settings after closing an application. I have set the shorttime to show this feature in walkthrough
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
