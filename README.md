@@ -33,10 +33,9 @@ The following **additional** features are implemented:
 Here's a walkthrough of implemented user stories:
 
 <img src='http://i.imgur.com/rpat0Km.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-<img src='http://i.imgur.com/t46dUaP.gif' title='Video Walkthrough Updated' width='' alt='Video Walkthrough' />
-
-
 Background of the application looks different in GIF than original application.
+
+<img src='http://i.imgur.com/t46dUaP.gif' title='Video Walkthrough Updated' width='' alt='Video Walkthrough' />
 Second Walkthrough is to display that Bill saving settings after closing an application. I have set the shorttime to show this feature in walkthrough
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
