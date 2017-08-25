@@ -50,10 +50,25 @@ class ViewController: UIViewController {
         x = x + 1
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        billTextField.becomeFirstResponder()
+        
+        if let lastBillAmount = SettingsHelper.getLastBillAmount() {
+            billTextField.text = lastBillAmount
+        }
+        else{
+            billTextField.text = "";
+        }
+        
+        
+    }
+    
     
     
     @IBAction func calculateTipBillTextField(_ sender: Any) {
         let tipPercentage = Int(tipPercentageLabel.text!)
+        SettingsHelper.setLastBillAmount(billAmount: billTextField.text!)
+        
         calculateTipAmount(tipPercentage: tipPercentage!)
     }
     
@@ -149,10 +164,6 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        billTextField.becomeFirstResponder()
     }
     
     func setServiceTip(serviceRate:String) {
