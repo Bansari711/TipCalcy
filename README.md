@@ -28,6 +28,9 @@ The following **additional** features are implemented:
 - [x] User can save the default tip percentage settings or custom tip percentage settings through tip-settings page
 - [x] User can change application gradient background and save selected background
 - [x] Shake phone to reset bill amount.
+- [x] User can save bill as PDF.
+- [x] User can view saved PDF.
+- [x] Use of UISlider to increase or decrese tip percentage and no. of splits.
 
 ## Video Walkthrough 
 
@@ -38,6 +41,9 @@ Background of the application looks different in GIF than original application.
 
 <img src='http://i.imgur.com/t46dUaP.gif' title='Video Walkthrough Updated' width='' alt='Video Walkthrough' />
 Second Walkthrough is to display that Bill saving settings after closing an application. I have set the shorttime to show this feature in walkthrough
+
+<img src='http://i.imgur.com/0cqYcre.gif' title='Video Walkthrough Updated' width='' alt='Video Walkthrough' />
+Pdf Option is added to the application.
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
