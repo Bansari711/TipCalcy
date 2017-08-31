@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIViewControllerTransitioningDelegate {
     
     
 
@@ -25,8 +25,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var averageServiceBtn: UIButton!
     
     var x = 0
-    
-    
+    let transition = CircularTransition()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,12 +39,10 @@ class ViewController: UIViewController {
         tipAmountLabel.text = currencySymbol + "0.00"
         amountPerPersonLabel.text = currencySymbol + "0.00"
         totalAmountLabel.text = currencySymbol + "0.00"
-        print("viewDidLoad")
-        print(UserDefaults.standard.object(forKey: "test"))
+       
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        print("call")
         self.view.setBackground(colorOne: Colors.colorBright, view: self.view, x: x)
         x = x + 1
     }
@@ -66,7 +63,7 @@ class ViewController: UIViewController {
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         billTextField.text = "";
     }
-    
+	
     @IBAction func calculateTipBillTextField(_ sender: Any) {
         let tipPercentage = Int(tipPercentageLabel.text!)
         SettingsHelper.setLastBillAmount(billAmount: billTextField.text!)
@@ -167,14 +164,10 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     func setServiceTip(serviceRate:String) {
         let path = Bundle.main.path(forResource: "TipSettings", ofType: "plist")
-        print(path!)
-        
         let url = URL(fileURLWithPath: path!)
-        print(url)
-        
         let obj = NSDictionary(contentsOf: url)
         
         if let tip = obj!.value(forKey: serviceRate){
@@ -185,23 +178,69 @@ class ViewController: UIViewController {
         calculateTipAmount(tipPercentage: Int(tipPercentageLabel.text!)!)
     }
     
-    func applicationWillResignActive(application: UIApplication) {
-        UserDefaults.standard.set("123", forKey: "test")
-        UserDefaults.standard.synchronize()
-    }
-    
-    func applicationDidEnterBackground(application: UIApplication) {
-        UserDefaults.standard.set("123", forKey: "test")
-        UserDefaults.standard.synchronize()
-    }
-    
-    func applicationDidEnterForeground(application: UIApplication) {
-        print("DidEnter")
-    }
-    
-    func applicationWillTerminate(application: UIApplication) {
-        UserDefaults.standard.set("123", forKey: "test")
-        UserDefaults.standard.synchronize()
-    }
-}
+    @IBAction func savePdfBtn(_ sender: Any) {
+        
+        var checkNumber: Int = UserDefaults.standard.object(forKey: "check_number") as! Int
+        print(checkNumber)
+        if checkNumber != 1000 {
+            checkNumber = checkNumber + 1
+            UserDefaults.standard.set(checkNumber, forKey: "check_number")
+        }else{
+            UserDefaults.standard.set(1000, forKey: "check_number")
+            checkNumber = 1000
+        }
+        
+        
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        let filePath = "\(path)/Check\(checkNumber).pdf"
+        print(path)
+        print(filePath)
+        
+        generatePDF(filePath: filePath, checkNumber: checkNumber)
+        
+               
 
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "PdfViewSegue") {
+            var checkNumber: Int = UserDefaults.standard.object(forKey: "check_number") as! Int
+            print(checkNumber)
+            if checkNumber != 1000 {
+                checkNumber = checkNumber + 1
+                UserDefaults.standard.set(checkNumber, forKey: "check_number")
+            }else{
+                UserDefaults.standard.set(1000, forKey: "check_number")
+                checkNumber = 1000
+            }
+            
+            
+            let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+            let filePath = "\(path)/Check\(checkNumber).pdf"
+            print(path)
+            print(filePath)
+            
+            generatePDF(filePath: filePath, checkNumber: checkNumber)
+            
+            //get a reference to the destination view controller
+            let destinationVC:PdfViewController = segue.destination as! PdfViewController
+            //set properties on the destination view controller
+            destinationVC.pdfFileName = "Check\(checkNumber)"
+            //etc...
+        }
+
+    }
+    
+    func generatePDF(filePath:String, checkNumber:Int) {
+        UIGraphicsBeginPDFContextToFile(filePath, CGRect.zero, nil)
+        UIGraphicsBeginPDFPageWithInfo(CGRect(x: 0, y: 0, width: 850, height: 1200), nil)
+        
+        PdfSettings.drawImage()
+        PdfSettings.drawText(billAmount: billTextField.text!, tipPercentage: tipPercentageLabel.text!, tipAmount: tipAmountLabel.text!, noOfPeople: noOfPeopleLabel.text!, paymentPerPerson: amountPerPersonLabel.text!, totalAmount: totalAmountLabel.text!, checkNumber: checkNumber)
+        
+        UIGraphicsEndPDFContext()
+    }
+    
+    
+    
+}
